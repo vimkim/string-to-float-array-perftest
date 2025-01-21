@@ -15,7 +15,7 @@ Both implementations handle arrays of floats in the format: `[1.0, 2.0, 3.0, ...
 
 ## Project Structure
 
-```
+```txt
 vector_parser_test/
 ├── CMakeLists.txt              # Build configuration
 ├── src/
@@ -94,21 +94,53 @@ Default test parameters:
 - Automatic type conversion
 - Same size limits as manual parser
 
-## Error Handling
+## Results
 
-Both implementations return:
+```
+⬢ [Docker]  zsh ❯ cmake --build build --target run_perf_tests
+[1/1] cd /home/vimkim/temp/rapidjson_perftest/string-to-float-array-p..._perftest/string-to-float-array-perftest/build --target run_rapidjson
+Running both performance tests...
+[1/1] cd /home/vimkim/temp/rapidjson_perftest/string-to-float-array-perftest/build && /nix/store/38cffsqqx823crf1i4bcf6zz1qz1hgpd-cmake-3.30.
+5/bin/cmake -E echo Running\ manual\ implementation\ test... && /home/vimkim/temp/rapidjson_perftest/string-to-float-array-perftest/build/per
+f_test_manual
+Running manual implementation test...
+Generating 1000 test strings with 2000 floats each...
 
-- 0 (success) when parsing succeeds
-- -1 (error) for:
-  - Invalid input format
-  - Memory allocation failures
-  - Size limit violations
-  - Number format errors
+Running performance test...
+Performance Results:
+===================
+Total time: 1736.679 ms
+Average time per string: 1.737 ms
+Min time: 1.706 ms
+Max time: 1.960 ms
+Successful parses: 1000
+Failed parses: 0
+Throughput: 575.812 strings/second
 
-## Contributing
+Percentiles:
+50th: 1.725 ms
+90th: 1.787 ms
+95th: 1.845 ms
+99th: 1.865 ms
+n
+[1/1] cd /home/vimkim/temp/rapidjson_perftest/string-to-float-array-perftest/build && /nix/store/38cffsqqx823crf1i4bcf6zz1qz1hgpd-cmake-3.30.5/bin/cmake -E echo Running\ RapidJSON\ implementation\ test... && /home/vimkim/temp/rapidjson_perftest/string-to-float-array-perftest/build/perf_test_rapidjson
+Running RapidJSON implementation test...
+Generating 1000 test strings with 2000 floats each...
 
-When contributing, please ensure:
+Running performance test...
+Performance Results:
+===================
+Total time: 1044.767 ms
+Average time per string: 1.045 ms
+Min time: 1.026 ms
+Max time: 1.275 ms
+Successful parses: 1000
+Failed parses: 0
+Throughput: 957.151 strings/second
 
-1. Tests pass for both implementations
-2. Performance metrics are included in pull requests
-3. Code follows existing style and conventions
+Percentiles:
+50th: 1.039 ms
+90th: 1.078 ms
+95th: 1.098 ms
+99th: 1.108 ms
+```
